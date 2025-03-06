@@ -2,14 +2,13 @@ const { ApolloServer, gql } = require("apollo-server");
 const { AmplienceGraphQLApi } = require("./api");
 
 // Step 1: Define the GraphQL Schema
-const amplienceGraphQLApi = new AmplienceGraphQLApi();
 
 const typeDefs = gql`
   scalar JSON
 
   type Query {
     hello: String
-    getAmplienceContent(deliveryKey: String): AmplienceContent
+    getAmplienceContent(deliveryKey: String, previw: Boolean): AmplienceContent
   }
 
   type AmplienceContent {
@@ -159,6 +158,7 @@ const resolvers = {
       return "Hello, world!";
     },
     async getAmplienceContent(_parent, args) {
+      const amplienceGraphQLApi = new AmplienceGraphQLApi(args.previw);
       const result = await amplienceGraphQLApi.getModule(args.deliveryKey);
       return result;
     },

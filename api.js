@@ -1,21 +1,20 @@
-const axios = require('axios');
+const axios = require("axios");
 const compactGraphQLQuery = require("./graphql-compress");
 const { getPage } = require("./getPage");
 
 class AmplienceGraphQLApi {
   client;
 
-  constructor(client) {
-    const AMPLIENCE_BASE_URL =
+  constructor(previw = false) {
+    const AMPLIENCE_BASE_URL = "https://uasandbox.cdn.content.amplience.net/";
+    const AMPLIENCE_PREVIW_BASE_URL =
       "https://uowk0qxoku001ufatmmwkv1fe.staging.bigcontent.io/";
-    this.client =
-      client ||
-      axios.create({
-        baseURL: AMPLIENCE_BASE_URL,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+    this.client = axios.create({
+      baseURL: previw ? AMPLIENCE_PREVIW_BASE_URL : AMPLIENCE_BASE_URL,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 
   async getModule(deliveryKey) {
