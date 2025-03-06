@@ -1,4 +1,4 @@
-const Tokenizr = require('Tokenizr');
+const Tokenizr = require('tokenizr');
 
 /*  the API function: compress a GraphQL query string  */
 function compactGraphQLQuery(query) {
