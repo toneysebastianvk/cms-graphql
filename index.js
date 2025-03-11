@@ -170,6 +170,8 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  introspection: true,
+  playground: true, 
 });
 
 // Step 4: Launch the server
