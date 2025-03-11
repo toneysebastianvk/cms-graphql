@@ -5,12 +5,12 @@ const { getPage } = require("./getPage");
 class AmplienceGraphQLApi {
   client;
 
-  constructor(previw = false) {
+  constructor(preview = false) {
     const AMPLIENCE_BASE_URL = "https://uasandbox.cdn.content.amplience.net/";
-    const AMPLIENCE_PREVIW_BASE_URL =
+    const AMPLIENCE_PREVIEW_BASE_URL =
       "https://uowk0qxoku001ufatmmwkv1fe.staging.bigcontent.io/";
     this.client = axios.create({
-      baseURL: previw ? AMPLIENCE_PREVIW_BASE_URL : AMPLIENCE_BASE_URL,
+      baseURL: preview ? AMPLIENCE_PREVIEW_BASE_URL : AMPLIENCE_BASE_URL,
       headers: {
         "Content-Type": "application/json",
       },

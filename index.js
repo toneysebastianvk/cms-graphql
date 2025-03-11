@@ -8,7 +8,7 @@ const typeDefs = gql`
 
   type Query {
     hello: String
-    getAmplienceContent(deliveryKey: String, previw: Boolean): AmplienceContent
+    getAmplienceContent(deliveryKey: String, preview: Boolean): AmplienceContent
   }
 
   type AmplienceContent {
@@ -76,6 +76,7 @@ const typeDefs = gql`
     styles: HeroMiniStyles
     media: Media
     teaser: Teaser
+    isPersonalization: Boolean
   }
 
   type TeaserTarget {
@@ -158,7 +159,7 @@ const resolvers = {
       return "Hello, world!";
     },
     async getAmplienceContent(_parent, args) {
-      const amplienceGraphQLApi = new AmplienceGraphQLApi(args.previw);
+      const amplienceGraphQLApi = new AmplienceGraphQLApi(args.preview);
       const result = await amplienceGraphQLApi.getModule(args.deliveryKey);
       return result;
     },
@@ -172,6 +173,6 @@ const server = new ApolloServer({
 });
 
 // Step 4: Launch the server
-server.listen().then(({ url }) => {
-  console.log(`Server ready at ${url}`);
+server.listen({ port: 3000, path: '/graphql' }).then(({ url }) => {
+  console.log(`Server ready at ${url}graphql`);
 });
