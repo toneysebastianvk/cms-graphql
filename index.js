@@ -77,6 +77,7 @@ const typeDefs = gql`
     media: Media
     teaser: Teaser
     isPersonalization: Boolean
+    shoppableHeroImage: ShoppableHeroImage
   }
 
   type TeaserTarget {
@@ -150,6 +151,56 @@ const typeDefs = gql`
   type Slot {
     rawJson: JSON
   }
+
+  # ---------- Point of Interest -------------
+  type ShoppableHeroImage {
+    shoppableImage: ShoppableImage
+    polygonHide: Boolean
+    component: String
+    _meta: MetaData
+  }
+  type ShoppableImage {
+    image: Image
+    poi: PointOfInterest
+    hotspots: [Hotspot]
+    polygons: [Polygon]
+  }
+  type Image {
+    _meta: MetaData
+    id: ID
+    name: String
+    endpoint: String
+    defaultHost: String
+    mimeType: String
+  }
+  type PointOfInterest {
+    x: Float
+    y: Float
+    w: Float
+    h: Float
+  }
+  type Hotspot {
+    id: ID
+    target: String
+    selector: String
+    points: Point
+  }
+
+  type Point {
+    x: Float
+    y: Float
+  }
+
+  type Polygon {
+    id: ID
+    target: String
+    selector: String
+    points: [Point]
+  }
+
+  type MetaData {
+    schema: String
+  }
 `;
 
 // Step 2: Define the Resolvers
@@ -171,10 +222,10 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   introspection: true,
-  playground: true, 
+  playground: true,
 });
 
 // Step 4: Launch the server
-server.listen({ port: 3000, path: '/graphql' }).then(({ url }) => {
+server.listen({ port: 3000, path: "/graphql" }).then(({ url }) => {
   console.log(`Server ready at ${url}graphql`);
 });
